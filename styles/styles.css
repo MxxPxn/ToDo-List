@@ -1,0 +1,148 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #e3e6e8;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    background: #fff;
+    padding: 25px;
+    width: 550px;
+    border-radius: 10px;
+
+}
+
+.todo-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-left: 5px;
+    justify-content: center;
+}
+
+.title {
+    margin-right: 10px;
+}
+
+.todo-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #edeef0;
+    border-radius: 30px;
+    padding-left: 20px;
+    margin-bottom: 25px;
+}
+
+.todo-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 15px 0;
+    font-size: 20px;
+}
+
+.todo-body img {
+    cursor: pointer;
+    height: 55px;
+    width: 55px;
+}
+
+ul li {
+    list-style: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #edeef0;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.buttons-container {
+    display: flex;
+    gap: 20px;
+
+}
+
+.delete-btn,
+.edit-btn {
+    cursor: pointer;
+    border: none;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.delete-icon,
+.edit-icon {
+    height: 20px;
+    width: 20px;
+}
+.completed {
+    text-decoration: line-through;
+    color: #ccc;
+}
+
+.left-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.task-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+.task-text{
+    font-size: 16px;
+}
+.task-checkbox{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    
+    height: 30px;
+    width: 30px;
+    border: 1px solid #8b8989;
+    border-radius: 50%;
+
+    outline: none;
+    cursor: pointer;
+    position: relative;
+}
+.task-checkbox:checked::after{
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(88, 88, 88);
+    font-size: 30px;
+    font-weight: bold;
+
+}
