@@ -25,13 +25,17 @@ function handleClick() {
         return;
     }
 
-    addTaskToDOM(task);
-    userInput.value = '';
+    const newTask = {
+        text: task,
+        completed: false
+    };
 
+    addTaskToDOM(newTask);
+    userInput.value = '';
     updateLocalStorage();
 }
 
-function addTaskToDOM(task) {
+function addTaskToDOM(taskObj) {
     // Create list item
     const listItem = document.createElement('li');
     listItem.className = 'task-item';
@@ -44,10 +48,17 @@ function addTaskToDOM(task) {
     checkbox.type = 'checkbox';
     checkbox.className = 'task-checkbox';
 
+    checkbox.checked = taskObj.completed;
+
     // Create task text
     const taskText = document.createElement('span');
-    taskText.textContent = task;
+    taskText.textContent = taskObj.text;
     taskText.className = 'task-text';
+
+    if (taskObj.completed) {
+        taskText.classList.add('completed');
+
+    }
 
     checkbox.addEventListener('change', () => {
         if (checkbox.checked) {
@@ -74,6 +85,18 @@ function addTaskToDOM(task) {
         taskText.focus();
     });
 
+    taskText.addEventListener('blur', () => {
+        taskText.contentEditable = 'false';
+        updateLocalStorage();
+    });
+
+    taskText.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            taskText.blur();
+        }
+    });
+
     // Delete button
     const deleteButton = document.createElement('button');
     deleteButton.className = 'delete-btn';
@@ -94,15 +117,21 @@ function addTaskToDOM(task) {
 function updateLocalStorage() {
     const tasks = [];
     // Loop through each task in the DOM and save its text
-    document.querySelectorAll('.task-text').forEach(taskTextEl => {
-        tasks.push(taskTextEl.textContent);
+    document.querySelectorAll('.task-item').forEach(listItem => {
+        const taskTextEl = listItem.querySelector('.task-text');
+        const checkboxEl = listItem.querySelector('.task-checkbox');
+        tasks.push({
+            text: taskTextEl.textContent,
+            completed: checkboxEl.checked
+        });
     });
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 function loadTasks() {
     const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    tasks.forEach(task => {
-        addTaskToDOM(task);
+    tasks.forEach(taskObj => {
+        addTaskToDOM(taskObj);
     });
 }
+ document.addEventListener('DOMContentLoaded', loadTasks);
