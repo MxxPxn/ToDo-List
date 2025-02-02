@@ -74,6 +74,7 @@ li {
     background: #edeef0;
     margin-bottom: 10px;
     border-radius: 5px;
+    box-sizing: border-box;
 }
 
 .buttons-container {
@@ -94,6 +95,7 @@ li {
     justify-content: space-between;
     padding: 10px;
     border-bottom: 1px solid #ddd;
+    flex-grow: 1;
 }
 
 .delete-icon,
@@ -110,6 +112,7 @@ li {
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-right: 10px;
 }
 .task-item{
     display: flex;
@@ -120,6 +123,8 @@ li {
 }
 .task-text{
     font-size: 16px;
+    flex-grow: 1;
+    margin-left: 10px;
 }
 .task-checkbox{
     -webkit-appearance: none;
