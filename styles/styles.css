@@ -112,7 +112,7 @@ li {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-right: 10px;
+    
 }
 .task-item{
     display: flex;
@@ -138,7 +138,7 @@ li {
 
     outline: none;
     cursor: pointer;
-    position: relative;
+    position: relaive;
 }
 .task-checkbox:checked::after{
     content: "✓";
