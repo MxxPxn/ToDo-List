@@ -40,25 +40,18 @@ function addTaskToDOM(taskObj) {
     const listItem = document.createElement('li');
     listItem.className = 'task-item';
 
-    // Create left container for checkbox and task text
+    // Create a container for the left side (both checkbox and task text)
     const leftContainer = document.createElement('div');
     leftContainer.className = 'left-container';
+    
+    // Create separate container for checkbox
+    const checkboxContainer = document.createElement('div');
+    checkboxContainer.className = 'checkbox-container';
 
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.className = 'task-checkbox';
-
     checkbox.checked = taskObj.completed;
-
-    // Create task text
-    const taskText = document.createElement('span');
-    taskText.textContent = taskObj.text;
-    taskText.className = 'task-text';
-
-    if (taskObj.completed) {
-        taskText.classList.add('completed');
-
-    }
 
     checkbox.addEventListener('change', () => {
         if (checkbox.checked) {
@@ -69,18 +62,22 @@ function addTaskToDOM(taskObj) {
         updateLocalStorage();
     });
 
-    leftContainer.appendChild(checkbox);
-    leftContainer.appendChild(taskText);
+    checkboxContainer.appendChild(checkbox);
 
-    // Create buttons container for Edit and Delete buttons
-    const buttonsContainer = document.createElement('div');
-    buttonsContainer.className = 'buttons-container';
+    // Create separate container for task text
+    const taskTextContainer = document.createElement('div');
+    taskTextContainer.className = 'task-text-container';
 
-    // Edit button
-    const editButton = document.createElement('button');
-    editButton.className = 'edit-btn';
-    editButton.innerHTML = `<img src="images/edit.svg" alt="edit" class="edit-icon"/>`;
-    editButton.addEventListener('click', () => {
+    const taskText = document.createElement('span');
+    taskText.textContent = taskObj.text;
+    taskText.className = 'task-text';
+
+    if (taskObj.completed) {
+        taskText.classList.add('completed');
+    }
+
+    // Allow inline editing by making the text editable on click
+    taskText.addEventListener('click', () => {
         taskText.contentEditable = 'true';
         taskText.focus();
     });
@@ -97,6 +94,25 @@ function addTaskToDOM(taskObj) {
         }
     });
 
+    taskTextContainer.appendChild(taskText);
+
+    // Append the two separate containers into the left container
+    leftContainer.appendChild(checkboxContainer);
+    leftContainer.appendChild(taskTextContainer);
+
+    // Create buttons container for Edit and Delete buttons
+    const buttonsContainer = document.createElement('div');
+    buttonsContainer.className = 'buttons-container';
+
+    // Edit button (if needed; clicking can focus the task text for editing)
+    const editButton = document.createElement('button');
+    editButton.className = 'edit-btn';
+    editButton.innerHTML = `<img src="images/edit.svg" alt="edit" class="edit-icon"/>`;
+    editButton.addEventListener('click', () => {
+        taskText.contentEditable = 'true';
+        taskText.focus();
+    });
+
     // Delete button
     const deleteButton = document.createElement('button');
     deleteButton.className = 'delete-btn';
@@ -109,10 +125,14 @@ function addTaskToDOM(taskObj) {
     buttonsContainer.appendChild(editButton);
     buttonsContainer.appendChild(deleteButton);
 
+    // Append the left container and buttons container to the list item
     listItem.appendChild(leftContainer);
     listItem.appendChild(buttonsContainer);
+
+    // Append the list item to your task list container
     taskList.appendChild(listItem);
 }
+
 
 function updateLocalStorage() {
     const tasks = [];
